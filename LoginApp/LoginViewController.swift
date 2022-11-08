@@ -5,6 +5,7 @@
 //  Created by Andrey Pryadko on 05/11/2022.
 //
 
+
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -17,15 +18,25 @@ class LoginViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let welcomeVC = segue.destination as? WelcomeViewController else { return }
-        welcomeVC.userNameFilled = userNameTextField.text
+        welcomeVC.userNameFilled = username
         
     }
 
-    @IBAction func loginButtonTapped(_ sender: UIButton) {
+    @IBAction func loginButtonTapped() {
         if userNameTextField.text != username
             || passwordTextField.text != password {
-            showAlert(title: "Invalid login or password", message: "Please, enter correct login and password")
+            showAlert(title: "Invalid login or password",
+                      message: "Please, enter correct login and password",
+                      textField: passwordTextField)
+  
+        } else {
+            performSegue(withIdentifier: "openWelcomeVC", sender: nil)
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     @IBAction func forgotUserNameButtonTapped() {
@@ -41,12 +52,14 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
     
-    private func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String, textField: UITextField? = nil) {
         let newAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "OK", style: .default)
+        let okButton = UIAlertAction(title: "OK", style: .default) { _ in
+            textField?.text = ""
+        }
         
         newAlert.addAction(okButton)
-        self.present(newAlert, animated: true)
+        present(newAlert, animated: true)
     }
     
 }
