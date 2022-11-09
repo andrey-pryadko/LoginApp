@@ -10,19 +10,28 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-// MARK: IBOutlets
+// MARK: - IB Outlets
 
     @IBOutlet var userNameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
     private let password = "12345"
     private let username = "John"
+
+    
+// MARK: - override methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let welcomeVC = segue.destination as? WelcomeViewController else { return }
         welcomeVC.userNameFilled = username
-        
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
+// MARK: - IB Actions
 
     @IBAction func loginButtonTapped() {
         if userNameTextField.text != username
@@ -34,11 +43,6 @@ class LoginViewController: UIViewController {
         } else {
             performSegue(withIdentifier: "openWelcomeVC", sender: nil)
         }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
     }
     
     @IBAction func forgotUserNameButtonTapped() {
@@ -53,7 +57,6 @@ class LoginViewController: UIViewController {
         userNameTextField.text = ""
         passwordTextField.text = ""
     }
-    
 }
 
 

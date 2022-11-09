@@ -12,7 +12,6 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var welcomeLabel: UILabel!
     
     var userNameFilled: String!
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +19,6 @@ class WelcomeViewController: UIViewController {
         welcomeLabel.text = "Welcome, \(userNameFilled ?? "User")"
     }
     
-
     @IBAction func logoutButtonTapped() {
         dismiss(animated: true)
     }
