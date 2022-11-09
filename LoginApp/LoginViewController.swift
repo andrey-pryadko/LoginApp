@@ -10,6 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+// MARK: IBOutlets
+
     @IBOutlet var userNameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
@@ -52,6 +54,12 @@ class LoginViewController: UIViewController {
         passwordTextField.text = ""
     }
     
+}
+
+
+// MARK: - showAlert
+
+extension LoginViewController {
     private func showAlert(title: String, message: String, textField: UITextField? = nil) {
         let newAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okButton = UIAlertAction(title: "OK", style: .default) { _ in
@@ -61,6 +69,4 @@ class LoginViewController: UIViewController {
         newAlert.addAction(okButton)
         present(newAlert, animated: true)
     }
-    
 }
-
